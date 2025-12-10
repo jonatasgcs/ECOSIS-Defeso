@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Período de Defeso (Liquid Glass Teste)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <style>
+
+/* ESTILOS PARA OS NOVOS BOTÕES DE AUTENTICAÇÃO */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Espaçamento entre os botões */
+}
+.auth-link {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Evita quebra de linha em nomes curtos */
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem; /* Espaçamento entre ícone e texto */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra base */
+}
+.btn-login {
+    border: 1px solid #93c5fd; /* Borda azul clara */
+    color: #93c5fd; /* Texto azul claro */
+    background-color: transparent;
+}
+.btn-login:hover {
+    background-color: rgba(147, 197, 253, 0.1); /* Fundo sutil no hover */
+    color: #fff;
+    border-color: #fff;
+}
+.btn-cadastro {
+    background-color: #3b82f6; /* Fundo azul sólido */
+    color: white;
+}
+.btn-cadastro:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+}
+
+/* Ajuste responsivo para alinhar os botões no mobile */
+@media (max-width: 768px) {
+    .auth-buttons {
+        margin-left: 0;
+        margin-top: 1rem;
+        width: 100%; /* Ocupa a largura total para centralização */
+        justify-content: center;
+    }
+}
+
+/*==============================================*/
+ /* Estilos Globais e Fundo Liquid Glass */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: #1a1a2e; 
+            background-image: linear-gradient(135deg, #1e3a8a 0%, #1a1a2e 100%);
+            color: #E2E8F0;
+        }
+        
+        /* O EFEITO LIQUID GLASS/GLASSMORPHISM BASE */
+        .glass {
+            background-color: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(12px); /* Mantido para as seções principais (cards/quiz) */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            padding: 2.5rem; 
+        }
+
+        .nav-glass {
+            background-color: rgba(26, 26, 46, 0.85); 
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .glass:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .glass h2, .glass h3 {
+            color: #FFFFFF;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+        
+        /* Estilos do Conteúdo Principal */
+        .content-container {
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-container h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .content-container h3 {
+            font-size: 2rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 0.5rem;
+        }
+
+        .content-container p, .content-container li {
+            color: #E2E8F0;
+            line-height: 1.8;
+        }
+
+
+        /* SEÇÃO ATALHOS - ESTILO DA IMAGEM (Sem Blur/Lista Escura) */
+        .atalhos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: #1e3a8a; /* Fundo azul/escuro sólido (cor média da imagem) */
+            padding: 3rem 1rem; /* Mais padding vertical */
+            gap: 1.5rem;
+            margin-top: 3rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+            border-top: 1px solid rgba(255, 255, 255, 0.05); 
+        }
+
+        .atalho a {
+            /* Estilo dos botões da imagem (Dark Glass Sólido) */
+            background-color: rgba(0, 0, 0, 0.3); /* Um pouco de transparência para parecer vidro escuro */
+            backdrop-filter: none; /* REMOVIDO O BLUR! */
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Borda mais clara */
+            padding: 1.2rem 1.8rem; /* Aumentado o padding */
+            border-radius: 0.75rem; /* Bordas suaves */
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+
+        /* Aplicação nos Cards e Banner Content */
+        .card, .banner-content {
+            border-radius: 1.5rem; /* Mais arredondado */
+        }
+        
+        /* Navbar com estilo Glass (substituindo .bg-gray-800) */
+        .nav-glass {
+            background-color: rgba(26, 26, 46, 0.8); /* Fundo escuro semi-transparente */
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos de cor de texto para os elementos Glass */
+        .glass h3, .glass h2 {
+            color: #FFFFFF;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .glass p {
+            color: #CBD5E1;
+        }
+
+        /* Estilos personalizados para o banner (Mantidos, mas com ajustes) */
+        .banner {
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* Overlay escuro para contrastar o vidro */
+            background-color: rgba(0, 0, 0, 0.35); 
+            z-index: 1;
+        }
+
+        /* Estilo para a imagem do banner */
+        .banner-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(80%); /* Escurece um pouco mais a imagem */
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 10;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* HOVER EFFECTS */
+        .card:hover, .banner-content:hover {
+            transform: translateY(-8px); /* Mais levantamento */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4); /* Sombra com cor do botão */
+        }
+
+        .atalho a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Ajustes responsivos (Mantidos) */
+        @media (max-width: 768px) {
+             /* ... (Seus estilos responsivos anteriores, se necessário) ... */
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav-glass text-white py-4 shadow-lg sticky top-0 z-50">
+    <div class="w-full flex flex-col md:flex-row justify-between items-center px-8">
+        
+        <div class="flex items-center gap-2">
+            
+            <img src="https://img.pikbest.com/png-images/20241013/a-white-and-blue-color-curve-fish-on-background-_10932612.png!w700wp" alt="Logo Pesca Mais" style="height: 40px; width: auto; margin-right: 8px;">
+            
+            <h1 class="text-2xl font-bold text-blue-300">Pesca +</h1>
+            
+        </div>
+        
+        <div class="flex flex-col md:flex-row items-center w-full md:w-auto mt-4 md:mt-0">
+            
+            <ul class="nav-links flex flex-col md:flex-row gap-4">
+                <li><a href="index.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Home</a></li>
+                <li><a href="html/regras.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Regras</a></li>
+                <li><a href="html/informacoes.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Informações</a></li>
+                <li><a href="html/direitos.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Direitos</a></li>
+                <li><a href="html/educacao.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Educação</a></li>
+                <li><a href="html/contato.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Contato</a></li>
+            </ul>
+
+            <div class="auth-buttons mt-4 md:mt-0 md:ml-6">
+                <a href="html/php/perfil.php" class="auth-link btn-cadastro">
+                    <i class="bi bi-person-circle"></i> Perfil
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <header class="banner">
+        <img src="img/banner.jpg" alt="Banner Período de Defeso" class="banner-image">
+        <div class="banner-content glass">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-lg">Protegendo o Futuro da Pesca</h2>
+            <p class="text-lg md:text-xl mb-8 opacity-90">Entenda a importância do período de defeso e participe dessa causa.</p>
+
+            <div class="banner-buttons flex flex-col md:flex-row justify-center gap-4">
+                <a href="html/regras.html" class="btn bg-blue-500 text-white py-3 px-6 rounded-xl shadow-md hover:bg-blue-600 transition duration-300 ease-in-out flex items-center justify-center gap-2 font-semibold">
+                    <i class="bi bi-book text-xl"></i> Regras do Defeso
+                </a>
+                <a href="html/informacoes.html" class="btn bg-red-500 text-white py-3 px-6 rounded-xl shadow-md hover:bg-red-600 transition duration-300 ease-in-out flex items-center justify-center gap-2 font-semibold">
+                    <i class="bi bi-flag text-xl"></i> Informações
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="cards flex flex-wrap justify-center gap-6 p-8 bg-transparent">
+        <div class="card glass w-80 text-center transform transition duration-300 ease-in-out p-6">
+            <h3 class="text-2xl font-semibold mb-4">O que é o Período de Defeso?</h3>
+            <p class="mb-6">Saiba por que essa pausa na pesca é vital para preservar espécies aquáticas.</p>
+            <a href="html/regras.html" class="btn-secundario bg-blue-500 text-white py-2.5 px-5 rounded-lg font-medium hover:bg-blue-600 transition duration-300 ease-in-out flex items-center justify-center gap-2">
+                <i class="bi bi-info-circle"></i> Saiba mais
+            </a>
+        </div>
+
+        <div class="card glass w-80 text-center transform transition duration-300 ease-in-out p-6">
+            <h3 class="text-2xl font-semibold mb-4">Impactos Ambientais</h3>
+            <p class="mb-6">Veja os efeitos da pesca predatória nos rios e oceanos do Brasil.</p>
+            <a href="html/educacao.html" class="btn-secundario bg-green-500 text-white py-2.5 px-5 rounded-lg font-medium hover:bg-green-600 transition duration-300 ease-in-out flex items-center justify-center gap-2">
+                <i class="bi bi-tree"></i> Conheça
+            </a>
+        </div>
+
+        <div class="card glass w-80 text-center transform transition duration-300 ease-in-out p-6">
+            <h3 class="text-2xl font-semibold mb-4">Direitos do Pescador</h3>
+            <p class="mb-6">Entenda como funciona o seguro-defeso e quem tem direito.</p>
+            <a href="html/direitos.html" class="btn-secundario bg-purple-500 text-white py-2.5 px-5 rounded-lg font-medium hover:bg-purple-600 transition duration-300 ease-in-out flex items-center justify-center gap-2">
+                <i class="bi bi-shield-check"></i> Ver direitos
+            </a>
+        </div>
+    </section>
+
+    <section class="atalhos flex flex-wrap justify-center bg-transparent p-8 gap-4">
+        <div class="atalho">
+            <a href="html/simulador.html" class="glass text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out hover:text-white hover:bg-white/10">
+                <i class="bi bi-clipboard-plus text-2xl text-blue-300"></i> Simulador de Inscrição
+            </a>
+        </div>
+
+        <div class="atalho">
+            <a href="html/educacao.html" class="glass text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out hover:text-white hover:bg-white/10">
+                <i class="bi bi-journal-richtext text-2xl text-blue-300"></i> Educação Ambiental
+            </a>
+        </div>
+
+        <div class="atalho">
+            <a href="html/contato.html" class="glass text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out hover:text-white hover:bg-white/10">
+                <i class="bi bi-envelope text-2xl text-blue-300"></i> Órgãos Responsáveis
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white text-center py-6 mt-auto shadow-inner">
+        <p class="text-sm opacity-80">&copy; 2025 Projeto Interdisciplinar - Universidade CEUMA</p>
+    </footer>
+</body>
+</html>

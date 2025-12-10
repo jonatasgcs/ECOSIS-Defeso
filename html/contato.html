@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fale Conosco - Período de Defeso (Estilo Glassmorphism)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+    <style>
+        /* ---- ESTILOS DO MODELO GLASSMORPHISM ---- */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: #1a1a2e; 
+            background-image: linear-gradient(135deg, #1e3a8a 0%, #1a1a2e 100%);
+            color: #E2E8F0; /* Texto base claro */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* O EFEITO LIQUID GLASS/GLASSMORPHISM BASE */
+        .glass {
+            background-color: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            padding: 2.5rem; 
+        }
+
+        .nav-glass {
+            background-color: rgba(26, 26, 46, 0.85); 
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .glass:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .glass h1, .glass h2, .glass h3 {
+            color: #FFFFFF;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+
+        .glass p, .glass li, .contact-form-container label {
+            color: #CBD5E1;
+        }
+
+        /* Estilos do Conteúdo Principal (Adaptados) */
+        .section-block {
+            max-width: 100%; 
+            margin: 0;
+            padding: 2.5rem; 
+        }
+        .main-content-title {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .section-block h2 {
+            font-size: 2rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2); 
+            padding-bottom: 0.5rem;
+            text-align: left; 
+        }
+        .section-block p {
+            color: #CBD5E1;
+        }
+
+        /* ESTILOS DOS ÓRGÃOS (ORGAO-ITEM) */
+        .orgao-item {
+            border-left: 5px solid #93C5FD; 
+            border-radius: 0.625rem;
+            box-shadow: none; 
+            margin-bottom: 1.25rem;
+            padding: 1.25rem;
+            transition: all 0.3s ease-in-out;
+            background-color: rgba(0, 0, 0, 0.2); 
+        }
+        .orgao-item:hover {
+            transform: scale(1.01);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15); 
+        }
+        .orgao-item h2 {
+            color: #93C5FD; 
+            font-size: 1.6rem;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-top: 0;
+            text-shadow: none;
+        }
+        .orgao-item a {
+            color: #60A5FA; 
+        }
+
+        /* ESTILOS DO FORMULÁRIO DE FEEDBACK (CONTACT-FORM-CONTAINER) */
+        .contact-form-container {
+             background: transparent; 
+        }
+        .contact-form-container input[type="text"],
+        .contact-form-container input[type="email"],
+        .contact-form-container textarea {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #E2E8F0;
+        }
+
+        /* ESTILO DO BOTÃO DE ENVIAR FEEDBACK (CORRIGIDO) */
+        .contact-form-container button[type="submit"] {
+            background: linear-gradient(45deg, #3B82F6, #2563EB);
+            color: white;
+            padding: 0.8rem 1.5rem; /* Ajustado para ser igual aos outros botões grandes */
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); 
+            margin-top: 1.5rem;
+        }
+        .contact-form-container button[type="submit"]:hover {
+            background: linear-gradient(45deg, #2563EB, #1D4ED8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+        }
+        
+        /* ESTILO DO BOTÃO DE ACESSO AOS REGISTROS */
+        .registro-acesso-btn {
+            display: inline-block;
+            padding: 0.6rem 1.5rem; 
+            background-color: #3B82F6; 
+            color: white;
+            font-weight: 600;
+            border-radius: 0.75rem; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); 
+            transition: all 0.3s ease-in-out;
+            font-size: 1rem; 
+        }
+        .registro-acesso-btn:hover {
+            background-color: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+        }
+        
+        /* CLASSE PARA ROLAGEM ACOMPANHADA (STICKY) */
+        @media (min-width: 768px) {
+            .sidebar-sticky-group {
+                position: sticky;
+                top: 6rem; /* Distância do topo (abaixo da nav-glass) */
+                align-self: flex-start; 
+            }
+        }
+        
+        /* ---- SEÇÃO ATALHOS CORRIGIDA ---- */
+        .atalhos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: transparent; 
+            padding: 3rem 1rem; 
+            gap: 1.5rem;
+            margin-top: 3rem;
+            box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.3); 
+            border-top: 1px solid rgba(255, 255, 255, 0.08); 
+            border-radius: 0; 
+            width: 100%;
+        }
+
+        .atalho a {
+            background-color: rgba(0, 0, 0, 0.3); 
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.2rem 1.8rem;
+            border-radius: 0.75rem; 
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .atalho a:hover {
+            background-color: rgba(255, 255, 255, 0.1); 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+        
+        .atalho a .bi {
+            color: #93C5FD; 
+            font-size: 1.8rem;
+        }
+        /* ---- FIM SEÇÃO ATALHOS CORRIGIDA ---- */
+
+        /* FOOTER - Estilos do modelo de Regras */
+        footer {
+            background-color: #0F172A; 
+            padding: 1.5rem 1rem;
+            margin-top: 0;
+            color: #94A3B8;
+            font-size: 0.9rem;
+            border-top: none;
+            text-align: center;
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+             .section-block {
+                padding: 1.5rem;
+                margin: 1.5rem auto;
+            }
+            .main-content-title { font-size: 2rem; }
+            .section-block h2 { font-size: 1.5rem; }
+            .atalhos {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+                margin-top: 1.5rem;
+            }
+            .atalho a {
+                width: 100%;
+                justify-content: center;
+                padding: 0.8rem 1.5rem;
+            }
+            .atalho a .bi { font-size: 1.5rem; }
+        }
+
+        /* ESTILOS PARA OS NOVOS BOTÕES DE AUTENTICAÇÃO */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Espaçamento entre os botões */
+}
+.auth-link {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Evita quebra de linha em nomes curtos */
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem; /* Espaçamento entre ícone e texto */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra base */
+}
+.btn-login {
+    border: 1px solid #93c5fd; /* Borda azul clara */
+    color: #93c5fd; /* Texto azul claro */
+    background-color: transparent;
+}
+.btn-login:hover {
+    background-color: rgba(147, 197, 253, 0.1); /* Fundo sutil no hover */
+    color: #fff;
+    border-color: #fff;
+}
+.btn-cadastro {
+    background-color: #3b82f6; /* Fundo azul sólido */
+    color: white;
+}
+.btn-cadastro:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+}
+
+/* Ajuste responsivo para alinhar os botões no mobile */
+@media (max-width: 768px) {
+    .auth-buttons {
+        margin-left: 0;
+        margin-top: 1rem;
+        width: 100%; /* Ocupa a largura total para centralização */
+        justify-content: center;
+    }
+}
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+<div id="popup-notification-container" class="popup-notification">
+</div>
+
+<nav class="nav-glass text-white py-4 shadow-lg sticky top-0 z-50">
+    <div class="w-full flex flex-col md:flex-row justify-between items-center px-8">
+        
+        <div class="flex items-center gap-2">
+            
+            <img src="https://img.pikbest.com/png-images/20241013/a-white-and-blue-color-curve-fish-on-background-_10932612.png!w700wp" alt="Logo Pesca Mais" style="height: 40px; width: auto; margin-right: 8px;">
+            
+            <h1 class="text-2xl font-bold text-blue-300">Pesca +</h1>
+            
+        </div>
+        
+        <div class="flex flex-col md:flex-row items-center w-full md:w-auto mt-4 md:mt-0">
+            
+            <ul class="nav-links flex flex-col md:flex-row gap-4">
+                <li><a href="../index.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Home</a></li>
+                <li><a href="regras.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Regras</a></li>
+                <li><a href="informacoes.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Informações</a></li>
+                <li><a href="direitos.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Direitos</a></li>
+                <li><a href="educacao.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Educação</a></li>
+                <li><a href="contato.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Contato</a></li>
+            </ul>
+
+            <div class="auth-buttons mt-4 md:mt-0 md:ml-6">
+                <a href="php/perfil.php" class="auth-link btn-cadastro">
+                    <i class="bi bi-person-circle"></i> Perfil
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="flex-grow">
+    <h1 class="main-content-title glass mx-auto mt-8 w-11/12 md:max-w-7xl">Fale Conosco</h1>
+    <p class="text-center text-gray-400 mb-8 mx-auto w-11/12 md:max-w-7xl">Confira abaixo os canais de atendimento dos principais órgãos responsáveis pela fiscalização e regulamentação do período de defeso no Brasil, e deixe seu feedback para nós!</p>
+
+    <div class="main-grid flex flex-col md:flex-row gap-8 max-w-7xl mx-auto p-4 md:p-8">
+
+        <div class="w-full md:w-2/3 flex flex-col gap-4">
+            
+            <section class="section-block glass">
+                <h2 class="text-center mb-6">Órgãos de Fiscalização e Regulamentação</h2>
+
+                <div class="orgao-item glass">
+                    <h2><i class="bi bi-info-circle-fill mr-2"></i> IBAMA (Instituto Brasileiro do Meio Ambiente)</h2>
+                    <p>Responsável pela fiscalização ambiental e proteção da fauna aquática, o IBAMA é um dos principais órgãos para denúncias e informações sobre o defeso.</p>
+                    <p><strong>Site:</strong> <a href="https://www.gov.br/ibama" target="_blank" class="text-blue-400 hover:text-blue-300">https://www.gov.br/ibama</a></p>
+                </div>
+
+                <div class="orgao-item glass">
+                    <h2><i class="bi bi-tree-fill mr-2"></i> ICMBio (Instituto Chico Mendes de Conservação da Biodiversidade)</h2>
+                    <p>Atua na conservação da biodiversidade e gestão de unidades de conservação, sendo também um canal importante para denúncias e informações sobre a fauna e flora protegidas.</p>
+                    <p><strong>Site:</strong> <a href="https://www.gov.br/icmbio" target="_blank" class="text-blue-400 hover:text-blue-300">https://www.gov.br/icmbio</a></p>
+                </div>
+
+                <div class="orgao-item glass">
+                    <h2><i class="bi bi-building-fill mr-2"></i> MAPA (Ministério da Agricultura, Pecuária e Abastecimento)</h2>
+                    <p>O MAPA regulamenta as atividades de pesca e define os períodos de defeso, sendo uma fonte oficial para as normativas e calendários.</p>
+                    <p><strong>Site:</strong> <a href="https://www.gov.br/agricultura" target="_blank" class="text-blue-400 hover:text-blue-300">https://www.gov.br/agricultura</a></p>
+                </div>
+            </section>
+        </div>
+
+        <div class="w-full md:w-1/3 flex flex-col gap-8 sidebar-sticky-group">
+            
+            <section id="feedback" class="contact-form-container section-block glass">
+                <h2>Queremos ouvir você!</h2>
+                <p>Por favor, deixe seu feedback sobre nosso site. Sua opinião é muito importante para continuarmos melhorando:</p>
+
+                <form action="php/processa_feedback.php" method="POST">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required class="w-full p-2 bg-gray-700 border-gray-600 rounded-md focus:ring-blue-500" />
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required class="w-full p-2 bg-gray-700 border-gray-600 rounded-md focus:ring-blue-500" />
+
+                    <label for="mensagem">Mensagem:</label>
+                    <textarea id="mensagem" name="mensagem" rows="5" required class="w-full p-2 bg-gray-700 border-gray-600 rounded-md focus:ring-blue-500"></textarea>
+
+                    <button type="submit">Enviar Feedback</button>
+
+                    <div class="mensagem-feedback" id="mensagemFeedback"></div>
+                </form>
+                
+                <div class="mt-8 text-center">
+                    <a href="php/admin_feedbacks.php" class="registro-acesso-btn">
+                        <i class="bi bi-chat-dots"></i> Acessar Registros de Feedback
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</main>
+
+<section class="atalhos">
+    <div class="atalho">
+        <a href="html/simulador.html" class="text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out">
+            <i class="bi bi-clipboard-plus text-2xl text-blue-300"></i> Simulador de Inscrição
+        </a>
+    </div>
+
+    <div class="atalho">
+        <a href="html/educacao.html" class="text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out">
+            <i class="bi bi-journal-richtext text-2xl text-blue-300"></i> Educação Ambiental
+        </a>
+    </div>
+
+    <div class="atalho">
+        <a href="html/contato.html" class="text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out">
+            <i class="bi bi-envelope text-2xl text-blue-300"></i> Órgãos Responsáveis
+        </a>
+    </div>
+</section>
+
+<footer class="bg-gray-800 text-white text-center py-6 mt-auto shadow-inner">
+    <p class="text-sm opacity-80">&copy; 2025 Projeto Interdisciplinar - Universidade CEUMA | Período de Defeso</p>
+</footer>
+
+<script>
+    // Função para exibir o popup
+    function showPopup(message, type) {
+        const notificationContainer = document.getElementById('popup-notification-container');
+        notificationContainer.textContent = message;
+        notificationContainer.className = `popup-notification show ${type}`;
+        setTimeout(() => {
+            notificationContainer.classList.remove('show');
+            setTimeout(() => {
+                notificationContainer.textContent = '';
+            }, 500);
+        }, 3000);
+    }
+
+    // Script para exibir popup baseado em URL (SEMPRE MANTER ESTE)
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const mensagem = urlParams.get('mensagem');
+        const notificationContainer = document.getElementById('popup-notification-container');
+
+        if (status && mensagem) {
+            notificationContainer.textContent = decodeURIComponent(mensagem);
+            notificationContainer.className = `popup-notification show ${status}`; 
+            setTimeout(() => {
+                notificationContainer.classList.remove('show');
+                setTimeout(() => {
+                    notificationContainer.textContent = '';
+                }, 500); 
+            }, 3000); 
+            history.replaceState({}, document.title, window.location.pathname);
+        }
+    });
+</script>
+
+</body>
+</html>

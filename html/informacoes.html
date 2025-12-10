@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Informações e Notícias - Período de Defeso</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+    <style>
+        /* ---- ESTILOS DO MODELO GLASSMORPHISM ---- */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: #1a1a2e; 
+            background-image: linear-gradient(135deg, #1e3a8a 0%, #1a1a2e 100%);
+            color: #E2E8F0; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .glass {
+            background-color: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            padding: 2.5rem; 
+        }
+
+        .nav-glass {
+            background-color: rgba(26, 26, 46, 0.85); 
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .glass:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* TÍTULOS (NEON REMOVIDO) */
+        .glass h2, .glass h3 {
+            color: #FFFFFF;
+            font-weight: 700;
+            text-shadow: none; 
+        }
+        
+        /* TÍTULO PRINCIPAL (NEON REMOVIDO) */
+        .main-content-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-align: center;
+            color: #FFFFFF;
+            text-shadow: none; 
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Estilos de Conteúdo */
+        .feed-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .feed-item {
+            display: flex;
+            flex-direction: column;
+            border-radius: 1rem;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .feed-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        .feed-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .feed-item-content {
+            padding: 1.5rem;
+            color: #CBD5E1;
+        }
+        .feed-item-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #93C5FD;
+            text-shadow: none;
+        }
+        .feed-item-content a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #3B82F6;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: color 0.3s ease;
+        }
+        .feed-item-content a:hover {
+            color: #60A5FA;
+        }
+        
+        /* Estilos do Quiz (Reutilizado do modelo anterior) */
+        .quiz-container h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .quiz-container button {
+            background-color: #A78BFA; 
+            color: #1a1a2e;
+            padding: 0.8rem 1.2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* CLASSE PARA ROLAGEM ACOMPANHADA (STICKY) */
+        @media (min-width: 768px) {
+            .sidebar-sticky-group {
+                position: sticky;
+                top: 6rem;
+                align-self: flex-start; 
+            }
+        }
+        
+        /* ---- SEÇÃO ATALHOS CORRIGIDA (GRADIENTE E PADDING DA 'FITA') ---- */
+        .atalhos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: transparent; 
+            padding: 3rem 1rem; 
+            gap: 1.5rem;
+            margin-top: 3rem;
+            box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.3); 
+            border-top: 1px solid rgba(255, 255, 255, 0.08); 
+            border-radius: 0; 
+            width: 100%;
+        }
+        .atalho a {
+            background-color: rgba(0, 0, 0, 0.3); 
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.2rem 1.8rem;
+            border-radius: 0.75rem; 
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s ease-in-out;
+        }
+        .atalho a:hover {
+            background-color: rgba(255, 255, 255, 0.1); 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+        .atalho a .bi {
+            color: #93C5FD; 
+            font-size: 1.8rem;
+        }
+        /* ---- FIM SEÇÃO ATALHOS CORRIGIDA ---- */
+
+        /* FOOTER - Estilos do modelo de Regras */
+        footer {
+            background-color: #0F172A; 
+            padding: 1.5rem 1rem;
+            margin-top: 0;
+            color: #94A3B8;
+            font-size: 0.9rem;
+            border-top: none;
+            text-align: center;
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+            .main-content-title {
+                font-size: 2.5rem; 
+                margin-top: 1.5rem;
+            }
+             .feed-item {
+                flex-direction: column;
+            }
+             .feed-item img {
+                height: 200px;
+            }
+        }
+        /* ESTILOS PARA OS NOVOS BOTÕES DE AUTENTICAÇÃO */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Espaçamento entre os botões */
+}
+.auth-link {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Evita quebra de linha em nomes curtos */
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem; /* Espaçamento entre ícone e texto */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra base */
+}
+.btn-login {
+    border: 1px solid #93c5fd; /* Borda azul clara */
+    color: #93c5fd; /* Texto azul claro */
+    background-color: transparent;
+}
+.btn-login:hover {
+    background-color: rgba(147, 197, 253, 0.1); /* Fundo sutil no hover */
+    color: #fff;
+    border-color: #fff;
+}
+.btn-cadastro {
+    background-color: #3b82f6; /* Fundo azul sólido */
+    color: white;
+}
+.btn-cadastro:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+}
+
+/* Ajuste responsivo para alinhar os botões no mobile */
+@media (max-width: 768px) {
+    .auth-buttons {
+        margin-left: 0;
+        margin-top: 1rem;
+        width: 100%; /* Ocupa a largura total para centralização */
+        justify-content: center;
+    }
+}
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+<nav class="nav-glass text-white py-4 shadow-lg sticky top-0 z-50">
+    <div class="w-full flex flex-col md:flex-row justify-between items-center px-8">
+        
+        <div class="flex items-center gap-2">
+            
+            <img src="https://img.pikbest.com/png-images/20241013/a-white-and-blue-color-curve-fish-on-background-_10932612.png!w700wp" alt="Logo Pesca Mais" style="height: 40px; width: auto; margin-right: 8px;">
+            
+            <h1 class="text-2xl font-bold text-blue-300">Pesca +</h1>
+            
+        </div>
+        
+        <div class="flex flex-col md:flex-row items-center w-full md:w-auto mt-4 md:mt-0">
+            
+            <ul class="nav-links flex flex-col md:flex-row gap-4">
+                <li><a href="../index.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Home</a></li>
+                <li><a href="regras.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Regras</a></li>
+                <li><a href="informacoes.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Informações</a></li>
+                <li><a href="direitos.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Direitos</a></li>
+                <li><a href="educacao.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Educação</a></li>
+                <li><a href="contato.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Contato</a></li>
+            </ul>
+
+            <div class="auth-buttons mt-4 md:mt-0 md:ml-6">
+                <a href="php/perfil.php" class="auth-link btn-cadastro">
+                    <i class="bi bi-person-circle"></i> Perfil
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="flex-grow">
+    <h1 class="main-content-title mx-auto w-11/12 md:max-w-7xl">Feed de Informações e Notícias</h1>
+    <p class="text-center text-gray-400 mb-8 mx-auto w-11/12 md:max-w-7xl">Acompanhe as últimas notícias e novidades sobre as regras de defeso e sustentabilidade.</p>
+
+    <div class="main-grid flex flex-col md:flex-row gap-8 max-w-7xl mx-auto p-4 md:p-8">
+
+        <div class="w-full md:w-2/3 flex flex-col gap-8">
+            
+            <section class="feed-container glass">
+                <div class="feed-item">
+                    <img src="https://www.guarapari.es.gov.br/uploads/files/noticias/carangueijouca.jpg" alt="Caranguejo Uçá no manguezal do Maranhão" loading="lazy">
+                    <div class="feed-item-content">
+                        <h3>Portaria Interministerial define andada do caranguejo-uçá em 2025</h3>
+                        <p>MPA e MMA estabelecem os períodos de defeso para o caranguejo-uçá em 11 estados, incluindo o Maranhão. Medida visa proteger a fase reprodutiva.</p>
+                        <a href="https://www.gov.br/mpa/pt-br/assuntos/noticias/portaria-conjunta-do-mpa-e-mma-estabelece-os-periodos-de-defeso-do-caranguejo-uca" target="_blank">
+                            Leia a Notícia Completa (MPA) <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="feed-item">
+                    <img src="https://www.gov.br/inss/pt-br/noticias/seguro-defeso-entenda-o-beneficio-para-o-pescador-artesanal/carrossel-pescador.jpeg" alt="Pescador artesanal em sua embarcação" loading="lazy">
+                    <div class="feed-item-content">
+                        <h3>Seguro-Defeso: Novas Regras e Foco no Maranhão para 2025</h3>
+                        <p>Gestão do benefício passa por mudanças com validação do Ministério do Trabalho. O Maranhão está entre os estados com maior foco na fiscalização de cadastros.</p>
+                        <a href="https://agenciabrasil.ebc.com.br/geral/noticia/2025-09/seguro-defeso-do-pescador-artesanal-tera-novas-regras-em-outubro" target="_blank">
+                            Ver Novas Regras e Informações (Agência Brasil) <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="feed-item">
+                    <img src="https://www.pm.ro.gov.br/wp-content/uploads/2025/01/WhatsApp-Image-2025-01-07-at-09.26.28-1-e1736342563529.jpeg" alt="Barreira de fiscalização do IBAMA" loading="lazy">
+                    <div class="feed-item-content">
+                        <h3>Ações de Fiscalização e Sustentabilidade no Maranhão</h3>
+                        <p>SEMA e IBAMA reforçam a fiscalização do defeso do camarão. O respeito ao ciclo reprodutivo é vital para a renovação dos estoques pesqueiros.</p>
+                        <a href="https://www.sema.ma.gov.br/noticias/maranhao-inicia-o-periodo-de-defeso-do-camarao" target="_blank">
+                            Leia mais sobre Ações de Fiscalização (SEMA/MA) <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+        <div class="w-full md:w-1/3 flex flex-col gap-8 sidebar-sticky-group">
+            
+            <section class="quiz-container glass" id="quiz">
+                <h3>Mini Quiz Rápido</h3>
+                <p>Teste seus conhecimentos sobre as regras e o período de defeso:</p>
+                <form id="quiz-form-lateral">
+                    <div class="quiz-question mb-4">
+                        <p class="font-semibold"><strong>1. O defeso protege a...</strong></p>
+                        <label class="block"><input type="radio" name="q1" value="a"> Pesca esportiva</label>
+                        <label class="block"><input type="radio" name="q1" value="b"> Reprodução das espécies</label>
+                        <label class="block"><input type="radio" name="q1" value="c"> Temporada de verão</label>
+                    </div>
+
+                    <div class="quiz-question mb-4">
+                        <p class="font-semibold"><strong>2. O Seguro-Defeso é pago pelo...</strong></p>
+                        <label class="block"><input type="radio" name="q2" value="a"> IBAMA</label>
+                        <label class="block"><input type="radio" name="q2" value="b"> INSS</label>
+                        <label class="block"><input type="radio" name="q2" value="c"> MAPA</label>
+                    </div>
+
+                    <button type="submit">Ver Resultado</button>
+
+                    <div id="quiz-result-lateral" class="mt-4 font-bold text-lg"></div>
+                </form>
+            </section>
+            
+            <section class="section-block glass">
+                <h2>Canais Oficiais</h2>
+                <p>Links diretos para documentos e legislação:</p>
+                <ul class="list-disc pl-6">
+                    <li><a href="html/direitos.html" class="text-blue-400 hover:text-blue-300">Guia de Direitos do Pescador</a></li>
+                    <li><a href="html/contato.html" class="text-blue-400 hover:text-blue-300">Canais de Contato com Órgãos</a></li>
+                    <li><a href="html/regras.html" class="text-blue-400 hover:text-blue-300">Regras e Multas</a></li>
+                </ul>
+            </section>
+        </div>
+    </div>
+</main>
+
+<section class="atalhos">
+    <div class="atalho">
+        <a href="html/simulador.html" class="text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out">
+            <i class="bi bi-clipboard-plus text-2xl text-blue-300"></i> Simulador de Inscrição
+        </a>
+    </div>
+
+    <div class="atalho">
+        <a href="html/educacao.html" class="text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out">
+            <i class="bi bi-journal-richtext text-2xl text-blue-300"></i> Educação Ambiental
+        </a>
+    </div>
+
+    <div class="atalho">
+        <a href="html/contato.html" class="text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out">
+            <i class="bi bi-envelope text-2xl text-blue-300"></i> Órgãos Responsáveis
+        </a>
+    </div>
+</section>
+
+<footer class="bg-gray-800 text-white text-center py-6 mt-auto shadow-inner">
+    <p class="text-sm opacity-80">&copy; 2025 Projeto Interdisciplinar - Universidade CEUMA | Período de Defeso</p>
+</footer>
+
+<script>
+    // Script do Quiz Lateral
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('quiz-form-lateral');
+        const result = document.getElementById('quiz-result-lateral');
+
+        // As respostas corretas são q1=b, q2=b (INSS)
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            let score = 0;
+            const q1 = form.q1.value;
+            const q2 = form.q2.value;
+
+            if (q1 === 'b') score++;
+            if (q2 === 'b') score++; 
+
+            result.textContent = `Resultado: Você acertou ${score} de 2.`;
+            result.classList.remove('text-red-500', 'text-green-600');
+            if (score === 2) {
+                result.classList.add('text-green-400');
+            } else {
+                result.classList.add('text-red-400');
+            }
+        });
+    });
+
+    // Script de exibição de popup (mantido como referência)
+    function showPopup(message, type) {
+        const notificationContainer = document.getElementById('popup-notification-container');
+        if (notificationContainer) {
+            notificationContainer.textContent = message;
+            notificationContainer.className = `popup-notification show ${type}`;
+            setTimeout(() => {
+                notificationContainer.classList.remove('show');
+                setTimeout(() => {
+                    notificationContainer.textContent = '';
+                }, 500);
+            }, 3000);
+        }
+    }
+</script>
+
+</body>
+</html>

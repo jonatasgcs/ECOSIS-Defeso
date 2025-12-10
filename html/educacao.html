@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Educação Ambiental (Estilo Glassmorphism)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <style>
+        /* ---- ESTILOS DO MODELO GLASSMORPHISM ---- */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: #1a1a2e; 
+            background-image: linear-gradient(135deg, #1e3a8a 0%, #1a1a2e 100%);
+            color: #E2E8F0; /* Texto base claro */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* O EFEITO LIQUID GLASS/GLASSMORPHISM BASE */
+        .glass {
+            background-color: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            padding: 2.5rem; 
+        }
+
+        .nav-glass {
+            background-color: rgba(26, 26, 46, 0.85); 
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .glass:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .glass h2, .glass h3 {
+            color: #FFFFFF;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+
+        .glass p, .glass li, .quiz-question p, .radio-group label {
+            color: #CBD5E1;
+        }
+
+        /* Estilos do Conteúdo Principal (Adaptados) */
+        .section-block {
+            max-width: 100%; 
+            margin: 0;
+            padding: 2.5rem; 
+        }
+        .section-block h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .section-block h3 {
+            font-size: 2rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2); 
+            padding-bottom: 0.5rem;
+        }
+        .section-block ol,
+        .section-block ul {
+            color: #CBD5E1;
+        }
+        .section-block ul a {
+             color: #93C5FD; /* Links em azul claro */
+        }
+        
+        /* Estilos de Formulário/Quiz (Adaptados ao Glass) */
+        .pesquisa-form-container input[type="text"],
+        .pesquisa-form-container select,
+        .pesquisa-form-container input[type="radio"],
+        .quiz-container input[type="radio"] {
+             /* Estilo para inputs em fundo escuro */
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #E2E8F0;
+        }
+        .pesquisa-form-container select {
+            color: #E2E8F0;
+        }
+        
+        /* ESTILO DO BOTÃO DE SUBMISSÃO DA PESQUISA (CORRIGIDO) */
+        .pesquisa-form-container button[type="submit"] {
+            background: linear-gradient(45deg, #3B82F6, #2563EB); /* Gradiente Azul */
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 0.75rem; /* Bordas arredondadas */
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Sombra consistente */
+            margin-top: 1.5rem;
+        }
+
+        .pesquisa-form-container button[type="submit"]:hover {
+            background: linear-gradient(45deg, #2563EB, #1D4ED8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+        }
+        /* FIM ESTILO DO BOTÃO DE SUBMISSÃO DA PESQUISA */
+
+        .quiz-container button {
+            /* Botão do Quiz: Roxo vibrante */
+            background-color: #A78BFA; 
+            color: #1a1a2e;
+        }
+        .quiz-container button:hover {
+            background-color: #8B5CF6;
+        }
+
+        /* ESTILO PARA O BOTÃO DE ACESSO AOS REGISTROS (CORRIGIDO) */
+        .registro-acesso-btn {
+            display: inline-block;
+            padding: 0.6rem 1.5rem; 
+            background-color: #3B82F6; 
+            color: white;
+            font-weight: 600;
+            border-radius: 0.75rem; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); 
+            transition: all 0.3s ease-in-out;
+            font-size: 1rem; 
+        }
+        .registro-acesso-btn:hover {
+            background-color: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+        }
+
+
+        /* CLASSE PARA ROLAGEM ACOMPANHADA (STICKY) */
+        @media (min-width: 768px) {
+            .sidebar-sticky-group {
+                position: sticky;
+                top: 6rem; 
+                align-self: flex-start; 
+            }
+        }
+        
+        /* ---- SEÇÃO ATALHOS CORRIGIDA (GRADIENTE E PADDING DA 'FITA') ---- */
+        .atalhos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: transparent; 
+            padding: 3rem 1rem; 
+            gap: 1.5rem;
+            margin-top: 3rem;
+            box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.3); 
+            border-top: 1px solid rgba(255, 255, 255, 0.08); 
+            border-radius: 0; 
+            width: 100%;
+        }
+
+        .atalho a {
+            background-color: rgba(0, 0, 0, 0.3); 
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.2rem 1.8rem;
+            border-radius: 0.75rem; 
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .atalho a:hover {
+            background-color: rgba(255, 255, 255, 0.1); 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+        
+        .atalho a .bi {
+            color: #93C5FD; 
+            font-size: 1.8rem;
+        }
+        /* ---- FIM SEÇÃO ATALHOS CORRIGIDA ---- */
+
+        /* FOOTER - Estilos do modelo de Regras */
+        footer {
+            background-color: #0F172A; 
+            padding: 1.5rem 1rem;
+            margin-top: 0;
+            color: #94A3B8;
+            font-size: 0.9rem;
+            border-top: none;
+            text-align: center;
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+             .section-block {
+                padding: 1.5rem;
+                margin: 1.5rem auto;
+            }
+            .section-block h2 { font-size: 2rem; }
+            .section-block h3 { font-size: 1.5rem; }
+            .atalhos {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+                margin-top: 1.5rem;
+            }
+            .atalho a {
+                width: 100%;
+                justify-content: center;
+                padding: 0.8rem 1.5rem;
+            }
+            .atalho a .bi { font-size: 1.5rem; }
+        }
+        /* ESTILOS PARA OS NOVOS BOTÕES DE AUTENTICAÇÃO */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Espaçamento entre os botões */
+}
+.auth-link {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Evita quebra de linha em nomes curtos */
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem; /* Espaçamento entre ícone e texto */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra base */
+}
+.btn-login {
+    border: 1px solid #93c5fd; /* Borda azul clara */
+    color: #93c5fd; /* Texto azul claro */
+    background-color: transparent;
+}
+.btn-login:hover {
+    background-color: rgba(147, 197, 253, 0.1); /* Fundo sutil no hover */
+    color: #fff;
+    border-color: #fff;
+}
+.btn-cadastro {
+    background-color: #3b82f6; /* Fundo azul sólido */
+    color: white;
+}
+.btn-cadastro:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+}
+
+/* Ajuste responsivo para alinhar os botões no mobile */
+@media (max-width: 768px) {
+    .auth-buttons {
+        margin-left: 0;
+        margin-top: 1rem;
+        width: 100%; /* Ocupa a largura total para centralização */
+        justify-content: center;
+    }
+}
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+<div id="popup-notification-container" class="popup-notification">
+</div>
+
+<nav class="nav-glass text-white py-4 shadow-lg sticky top-0 z-50">
+    <div class="w-full flex flex-col md:flex-row justify-between items-center px-8">
+        
+        <div class="flex items-center gap-2">
+            
+            <img src="https://img.pikbest.com/png-images/20241013/a-white-and-blue-color-curve-fish-on-background-_10932612.png!w700wp" alt="Logo Pesca Mais" style="height: 40px; width: auto; margin-right: 8px;">
+            
+            <h1 class="text-2xl font-bold text-blue-300">Pesca +</h1>
+            
+        </div>
+        
+        <div class="flex flex-col md:flex-row items-center w-full md:w-auto mt-4 md:mt-0">
+            
+            <ul class="nav-links flex flex-col md:flex-row gap-4">
+                <li><a href="../index.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Home</a></li>
+                <li><a href="regras.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Regras</a></li>
+                <li><a href="informacoes.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Informações</a></li>
+                <li><a href="direitos.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Direitos</a></li>
+                <li><a href="educacao.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Educação</a></li>
+                <li><a href="contato.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Contato</a></li>
+            </ul>
+
+            <div class="auth-buttons mt-4 md:mt-0 md:ml-6">
+                <a href="php/perfil.php" class="auth-link btn-cadastro">
+                    <i class="bi bi-person-circle"></i> Perfil
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="flex-grow">
+    <div class="main-grid flex flex-col md:flex-row gap-8 max-w-7xl mx-auto p-4 md:p-8">
+
+        <div class="w-full md:w-2/3 flex flex-col gap-8">
+            <section class="content-container section-block glass">
+                <h2>O que é o Defeso?</h2>
+                <p>
+                    O **período de defeso** é uma medida de proteção à reprodução das espécies aquáticas. Durante esse tempo, atividades como a pesca são limitadas ou proibidas para preservar o ciclo natural dos peixes, garantindo a sustentabilidade dos estoques pesqueiros para as futuras gerações.
+                </p>
+            </section>
+
+            <section class="content-container section-block glass">
+                <h2>Importância da Educação Ambiental</h2>
+                <p>
+                    A **conscientização** sobre o defeso é essencial para garantir a sustentabilidade dos recursos pesqueiros. Educar pescadores, estudantes e comunidades ribeirinhas contribui diretamente para a preservação ambiental, promovendo práticas de pesca responsável e o respeito aos ciclos naturais da vida aquática.
+                </p>
+            </section>
+
+            <section class="content-container section-block glass">
+                <h2>Leis e Regulamentos</h2>
+                <p>A legislação brasileira estabelece as diretrizes para o período de defeso, visando a proteção dos recursos pesqueiros. É fundamental conhecer e respeitar essas normas:</p>
+                <ul class="list-disc pl-6">
+                    <li>**Lei nº 11.959/2009** – Dispõe sobre a Política Nacional de Desenvolvimento Sustentável da Aquicultura e da Pesca.</li>
+                    <li>**Instruções Normativas do IBAMA e do MAPA** – Publicam anualmente os períodos de defeso específicos para cada espécie e região.</li>
+                    <li>**Normas estaduais complementares** – Alguns estados podem ter legislações adicionais. Consulte os órgãos ambientais locais para informações detalhadas.</li>
+                </ul>
+            </section>
+
+            <section class="content-container section-block glass" id="simulador-info">
+                <h2>Como se inscrever no benefício do defeso?</h2>
+                <p>
+                    Para se cadastrar e receber o benefício do Seguro-Defeso, o pescador artesanal precisa reunir os seguintes documentos e cumprir os requisitos estabelecidos pelo INSS:
+                </p>
+                <ul class="list-disc pl-6">
+                    <li>Registro Geral da Pesca (RGP) ativo e com pelo menos um ano de inscrição.</li>
+                    <li>Comprovante de residência atualizado.</li>
+                    <li>Declaração de atividade pesqueira emitida por colônia ou sindicato de pescadores.</li>
+                    <li>Carteira de Trabalho com comprovação de atividade exclusiva na pesca e sem vínculo empregatício.</li>
+                    <li>Não possuir outra fonte de renda formal ou benefício previdenciário (exceto pensão por morte ou auxílio-acidente).</li>
+                </ul>
+                <p class="mt-4">
+                    A inscrição deve ser feita através do
+                    <a href="https://www.gov.br/pt-br/servicos/requerer-o-seguro-defeso" target="_blank" class="text-blue-400 hover:text-blue-300 font-medium transition duration-300 ease-in-out">site oficial do Governo Federal</a>, ou pelo aplicativo Meu INSS.
+                </p>
+                <p class="mt-4">
+                    Modelos de documentos úteis:
+                    <ul class="list-disc pl-6">
+                        <li><a href="https://www.gov.br/pt-br/servicos/arquivos/seguro-defeso/modelo-de-declaracao.pdf" target="_blank" class="text-blue-400 hover:text-blue-300 font-medium transition duration-300 ease-in-out">Modelo de Declaração de Atividade</a></li>
+                        <li><a href="https://www.gov.br/pt-br/servicos/arquivos/seguro-defeso/requerimento-seguro-defeso.pdf" target="_blank" class="text-blue-400 hover:text-blue-300 font-medium transition duration-300 ease-in-out">Requerimento de Seguro Defeso</a></li>
+                    </ul>
+                </p>
+            </section>
+        </div>
+
+        <div class="w-full md:w-1/3 flex flex-col gap-8 sidebar-sticky-group">
+            
+            <section class="quiz-container section-block glass" id="quiz">
+                <h3>Mini Quiz: Teste seus conhecimentos sobre o defeso!</h3>
+                <p>Responda às perguntas abaixo para testar o que você aprendeu:</p>
+                <form id="quiz-form">
+                    <div class="quiz-question mb-4">
+                        <p class="font-semibold"><strong>1. O que é o período de defeso?</strong></p>
+                        <label class="block"><input type="radio" name="q1" value="a" class="form-radio text-blue-600"> Uma época de festa na pesca</label>
+                        <label class="block"><input type="radio" name="q1" value="b" class="form-radio text-blue-600"> Época de proteção à reprodução de peixes</label>
+                        <label class="block"><input type="radio" name="q1" value="c" class="form-radio text-blue-600"> Uma estação para pesca liberada</label>
+                    </div>
+
+                    <div class="quiz-question mb-4">
+                        <p class="font-semibold"><strong>2. Qual órgão é responsável pelo controle do defeso?</strong></p>
+                        <label class="block"><input type="radio" name="q2" value="a" class="form-radio text-blue-600"> INSS</label>
+                        <label class="block"><input type="radio" name="q2" value="b" class="form-radio text-blue-600"> IBAMA</label>
+                        <label class="block"><input type="radio" name="q2" value="c" class="form-radio text-blue-600"> MEC</label>
+                    </div>
+
+                    <button type="submit">Ver Resultado</button>
+
+                    <div id="quiz-result" class="mt-4 font-bold text-lg"></div>
+                </form>
+            </section>
+            
+            <section class="pesquisa-form-container section-block glass" id="pesquisa-form">
+                <h2>Pesquisa com Pescadores</h2>
+                <p>Ajude-nos a entender melhor sua realidade e contribuir para a melhoria das políticas de pesca e defeso respondendo às perguntas abaixo:</p>
+
+                <form action="php/processar_pesquisa.php" method="POST">
+                    <label for="embarcacao">Qual o tipo de embarcação utilizada?</label>
+                    <input type="text" name="embarcacao" id="embarcacao" required class="w-full p-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-white" />
+
+                    <label for="frequencia">Com qual frequência você pesca?</label>
+                    <select name="frequencia" id="frequencia" required class="w-full p-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700">
+                        <option value="">Selecione</option>
+                        <option value="Diariamente">Diariamente</option>
+                        <option value="Semanalmente">Semanalmente</option>
+                        <option value="Mensalmente">Mensalmente</option>
+                        <option value="Raramente">Raramente</option>
+                    </select>
+
+                    <label>Pretende utilizar o benefício do seguro defeso futuramente?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="pretende_beneficio" value="Sim" required class="form-radio text-blue-400"> Sim</label>
+                        <label><input type="radio" name="pretende_beneficio" value="Não" class="form-radio text-blue-400"> Não</label>
+                    </div>
+
+                    <label for="material">Qual material usado para a atividade pesqueira?</label>
+                    <input type="text" name="material" id="material" required class="w-full p-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-white" />
+
+                    <label for="especies">Quais espécies são capturadas por você?</label>
+                    <input type="text" name="especies" id="especies" required class="w-full p-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-white" />
+
+                    <label>Você está satisfeito com sua profissão?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="satisfacao" value="Sim" required class="form-radio text-blue-400"> Sim</label>
+                        <label><input type="radio" name="satisfacao" value="Não" class="form-radio text-blue-400"> Não</label>
+                    </div>
+
+                    <button type="submit">Enviar Respostas</button>
+                </form>
+                
+                <div class="mt-8 text-center">
+                    <a href="php/admin_pesquisa.php" class="registro-acesso-btn">
+                        <i class="bi bi-person-workspace"></i> Acessar Registros da Pesquisa 
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</main>
+
+<section class="atalhos">
+    <div class="atalho">
+        <a href="html/simulador.html" class="text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out">
+            <i class="bi bi-clipboard-plus text-2xl text-blue-300"></i> Simulador de Inscrição
+        </a>
+    </div>
+
+    <div class="atalho">
+        <a href="html/educacao.html" class="text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out">
+            <i class="bi bi-journal-richtext text-2xl text-blue-300"></i> Educação Ambiental
+        </a>
+    </div>
+
+    <div class="atalho">
+        <a href="html/contato.html" class="text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out">
+            <i class="bi bi-envelope text-2xl text-blue-300"></i> Órgãos Responsáveis
+        </a>
+    </div>
+</section>
+
+<footer class="bg-gray-800 text-white text-center py-6 mt-auto shadow-inner">
+    <p class="text-sm opacity-80">&copy; 2025 Projeto Interdisciplinar - Universidade CEUMA</p>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('quiz-form');
+        const result = document.getElementById('quiz-result');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            let score = 0;
+
+            if (form.q1.value === 'b') score++;
+            if (form.q2.value === 'b') score++; 
+
+            result.textContent = `Você acertou ${score} de 2 perguntas.`;
+            if (score === 2) {
+                result.classList.remove('text-red-500');
+                result.classList.add('text-green-600');
+            } else {
+                result.classList.remove('text-green-600');
+                result.classList.add('text-red-500');
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const mensagem = urlParams.get('mensagem');
+        const notificationContainer = document.getElementById('popup-notification-container');
+
+        if (status && mensagem) {
+            notificationContainer.textContent = decodeURIComponent(mensagem);
+            notificationContainer.className = `popup-notification show ${status}`;
+            setTimeout(() => {
+                notificationContainer.classList.remove('show');
+                setTimeout(() => {
+                    notificationContainer.textContent = '';
+                }, 500); 
+            }, 3000); 
+            history.replaceState({}, document.title, window.location.pathname);
+        }
+    });
+</script>
+
+</body>
+</html>

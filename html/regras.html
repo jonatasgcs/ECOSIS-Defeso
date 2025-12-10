@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Regras do Defeso (Estilo Final - Sem Blur)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <style>
+
+        /* ESTILOS PARA OS NOVOS BOTÕES DE AUTENTICAÇÃO */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Espaçamento entre os botões */
+}
+.auth-link {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Evita quebra de linha em nomes curtos */
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem; /* Espaçamento entre ícone e texto */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra base */
+}
+.btn-login {
+    border: 1px solid #93c5fd; /* Borda azul clara */
+    color: #93c5fd; /* Texto azul claro */
+    background-color: transparent;
+}
+.btn-login:hover {
+    background-color: rgba(147, 197, 253, 0.1); /* Fundo sutil no hover */
+    color: #fff;
+    border-color: #fff;
+}
+.btn-cadastro {
+    background-color: #3b82f6; /* Fundo azul sólido */
+    color: white;
+}
+.btn-cadastro:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+}
+
+/* Ajuste responsivo para alinhar os botões no mobile */
+@media (max-width: 768px) {
+    .auth-buttons {
+        margin-left: 0;
+        margin-top: 1rem;
+        width: 100%; /* Ocupa a largura total para centralização */
+        justify-content: center;
+    }
+}
+        /* Estilos Globais e Fundo Liquid Glass */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: #1a1a2e; 
+            background-image: linear-gradient(135deg, #1e3a8a 0%, #1a1a2e 100%);
+            color: #E2E8F0;
+        }
+        
+        /* O EFEITO LIQUID GLASS/GLASSMORPHISM BASE */
+        .glass {
+            background-color: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(12px); /* Mantido para as seções principais (cards/quiz) */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            padding: 2.5rem; 
+        }
+
+        .nav-glass {
+            background-color: rgba(26, 26, 46, 0.85); 
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .glass:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .glass h2, .glass h3 {
+            color: #FFFFFF;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+        
+        /* Estilos do Conteúdo Principal */
+        .content-container {
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-container h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .content-container h3 {
+            font-size: 2rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 0.5rem;
+        }
+
+        .content-container p, .content-container li {
+            color: #E2E8F0;
+            line-height: 1.8;
+        }
+
+        /* Tabela, Botão Ação, Notícias, Quiz, etc. (mantidos) */
+        .tabela-multas { /* ... estilos da tabela ... */ }
+        .btn-acao { /* ... estilos do botão de ação ... */ }
+        .noticia { /* ... estilos da notícia ... */ }
+        .quiz-container button { /* ... estilos dos botões do quiz ... */ }
+
+        /* LAYOUT EM COLUNAS */
+        .main-grid {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            gap: 2rem;
+        }
+
+        /* SEÇÃO ATALHOS - ESTILO DA IMAGEM (Sem Blur/Lista Escura) */
+        .atalhos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: #1e3a8a; /* Fundo azul/escuro sólido (cor média da imagem) */
+            padding: 3rem 1rem; /* Mais padding vertical */
+            gap: 1.5rem;
+            margin-top: 3rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+            border-top: 1px solid rgba(255, 255, 255, 0.05); 
+        }
+
+        .atalho a {
+            /* Estilo dos botões da imagem (Dark Glass Sólido) */
+            background-color: rgba(0, 0, 0, 0.3); /* Um pouco de transparência para parecer vidro escuro */
+            backdrop-filter: none; /* REMOVIDO O BLUR! */
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Borda mais clara */
+            padding: 1.2rem 1.8rem; /* Aumentado o padding */
+            border-radius: 0.75rem; /* Bordas suaves */
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* ESTILO DO HOVER DOS ATALHOS (NECESSÁRIO) */
+        .atalho a:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Brilha levemente no hover */
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+        
+        .atalho a .bi {
+            color: #93C5FD; /* Ícones em azul claro/vidro (mais claros que antes) */
+            font-size: 1.8rem; /* Ícones maiores */
+        }
+
+        /* FOOTER - ESTILO DA IMAGEM */
+        footer {
+            background-color: #0F172A; /* Fundo mais escuro/sólido (como na imagem) */
+            padding: 1.5rem 1rem;
+            margin-top: 0;
+            color: #94A3B8;
+            font-size: 0.9rem;
+            border-top: none; /* Sem borda de separação */
+            text-align: center;
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+            .main-grid {
+                flex-direction: column;
+                padding: 0 1rem;
+                gap: 1rem;
+            }
+            .glass {
+                padding: 1.5rem;
+                border-radius: 1rem;
+            }
+            .quiz-container button {
+                display: block;
+                width: 100%;
+                margin-bottom: 0.75rem;
+                margin-right: 0;
+            }
+            .atalhos {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+            .atalho a {
+                width: 100%;
+                justify-content: center;
+                padding: 0.8rem 1.5rem;
+            }
+            .atalho a .bi {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="regras-page">
+<nav class="nav-glass text-white py-4 shadow-lg sticky top-0 z-50">
+    <div class="w-full flex flex-col md:flex-row justify-between items-center px-8">
+        
+        <div class="flex items-center gap-2">
+            
+            <img src="https://img.pikbest.com/png-images/20241013/a-white-and-blue-color-curve-fish-on-background-_10932612.png!w700wp" alt="Logo Pesca Mais" style="height: 40px; width: auto; margin-right: 8px;">
+            
+            <h1 class="text-2xl font-bold text-blue-300">Pesca +</h1>
+            
+        </div>
+        
+        <div class="flex flex-col md:flex-row items-center w-full md:w-auto mt-4 md:mt-0">
+            
+            <ul class="nav-links flex flex-col md:flex-row gap-4">
+                <li><a href="../index.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Home</a></li>
+                <li><a href="regras.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Regras</a></li>
+                <li><a href="informacoes.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Informações</a></li>
+                <li><a href="direitos.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Direitos</a></li>
+                <li><a href="educacao.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Educação</a></li>
+                <li><a href="contato.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Contato</a></li>
+            </ul>
+
+            <div class="auth-buttons mt-4 md:mt-0 md:ml-6">
+                <a href="php/perfil.php" class="auth-link btn-cadastro">
+                    <i class="bi bi-person-circle"></i> Perfil
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <section class="content-container glass">
+        <h2>Regras do Período de Defeso</h2>
+        <p>O período de defeso é essencial para a preservação das espécies marinhas e a recuperação dos ecossistemas aquáticos. Durante esse período, é proibido pescar em determinadas áreas e em determinadas épocas para garantir que as espécies não sejam ameaçadas de extinção.</p>
+
+        <h3>Regras Gerais</h3>
+        <p>As principais regras durante o período de defeso incluem a suspensão da pesca de determinadas espécies, com o objetivo de evitar a sobrepesca. Abaixo estão algumas das principais diretrizes:</p>
+        <ol>
+            <li>É proibido pescar determinadas espécies de peixes e moluscos durante o período de defeso.</li>
+            <li>A pesca pode ser permitida apenas em áreas específicas e com licenciamento autorizado.</li>
+            <li>Multas pesadas serão aplicadas àqueles que desrespeitarem as leis do defeso.</li>
+            <li>O período de defeso varia de acordo com a espécie e a localidade.</li>
+        </ol>
+
+        <h3>Legislação e Penalidades</h3>
+        <p>A legislação que regulamenta o defeso é estabelecida por diversos órgãos ambientais, incluindo o IBAMA e o ICMBio. O descumprimento das regras pode resultar em:</p>
+        <ul>
+            <li>Multas que podem chegar a R$ 50.000,00, dependendo da infração.</li>
+            <li>Perda de licenciamento para atividades pesqueiras.</li>
+            <li>Processos judiciais e apreensão de embarcações e equipamentos pesqueiros.</li>
+        </ul>
+    </section>
+
+    <div class="main-grid flex flex-col md:flex-row">
+        
+        <div class="w-full md:w-2/3 flex flex-col gap-8">
+            
+            <section class="content-container glass w-full !max-w-none !m-0">
+                <h3>Tabela de Multas Comuns</h3>
+                <table class="tabela-multas">
+                    <thead>
+                        <tr>
+                            <th>Infração</th>
+                            <th>Multa (R$)</th>
+                            <th>Penalidade Adicional</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pesca sem licença durante o defeso</td>
+                            <td>5.000,00</td>
+                            <td>Apreensão dos equipamentos</td>
+                        </tr>
+                        <tr>
+                            <td>Pesca de espécie proibida</td>
+                            <td>10.000,00</td>
+                            <td>Processo judicial</td>
+                        </tr>
+                        <tr>
+                        <td>Uso de redes ilegais</td>
+                        <td>3.000,00</td>
+                        <td>Suspensão do direito de pesca</td>
+                        </tr>
+                        <tr>
+                            <td>Descarte irregular de resíduos</td>
+                            <td>2.000,00</td>
+                            <td>Notificação ambiental</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="fonte-tabela">Fonte: Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis (IBAMA), com base na Instrução Normativa n.º 185/2008 e normas complementares.</p>
+
+                <p class="mt-8">Em algumas situações, pode ser permitida a pesca de determinadas espécies durante o defeso, desde que o pescador obtenha uma autorização especial. As condições para essa autorização devem ser verificadas diretamente com os órgãos responsáveis.</p>
+
+                <div class="text-center mt-6">
+                    <a href="html/denuncia.html" class="btn-acao"><i class="bi bi-exclamation-circle"></i> Denunciar Pesca Ilegal</a>
+                </div>
+            </section>
+            
+            <section class="noticias-piracema glass w-full !max-w-none !m-0">
+                <h3>Notícias sobre a Piracema e o Período de Defeso no Maranhão</h3>
+                <div class="noticia">
+                    <div class="noticia-conteudo">
+                        <h4><a href="https://saobeneditodoriopreto.ma.gov.br/operacao-piracema-2025-prefeitura-de-sao-benedito-do-rio-preto-intensifica-fiscalizacao-contra-pesca-irregular/" target="_blank">Operação Piracema 2025 em São Benedito do Rio Preto</a></h4>
+                        <p>A Prefeitura de São Benedito do Rio Preto iniciou a Operação Piracema 2025, que visa combater a pesca ilegal durante o período de defeso. Saiba mais sobre as ações de fiscalização e como colaborar.</p>
+                    </div>
+                </div>
+
+                <div class="noticia">
+                    <div class="noticia-conteudo">
+                        <h4><a href="https://www.instagram.com/prefeituradecolinasma/reel/DFNkfALu9FV/?hl=en" target="_blank">Início da Piracema em Colinas – MA</a></h4>
+                        <p>A Prefeitura de Colinas anunciou o início da piracema, destacando as regras e a importância da preservação das espécies. Confira as medidas que devem ser seguidas neste período.</p>
+                    </div>
+                </div>
+
+                <div class="noticia">
+                    <div class="noticia-conteudo">
+                        <h4><a href="https://www.mpma.mp.br/noticia-perrodo-da-piracema-no-maranhro/" target="_blank">Período de Defeso no Maranhão</a></h4>
+                        <p>O Ministério Público do Maranhão divulgou informações sobre o período de defeso, abordando as espécies que precisam ser protegidas e as regras que devem ser seguidas pelos pescadores.</p>
+                    </div>
+                </div>
+
+                <div class="noticia">
+                    <div class="noticia-conteudo">
+                        <h4><a href="https://www.itinga.ma.gov.br/informa/109/chegou-a-piracema-respeite-a-natureza-de-01-de-nov" target="_blank">Chegada da Piracema em Itinga do Maranhão</a></h4>
+                        <p>A Prefeitura de Itinga do Maranhão alertou a população sobre o início da piracema, com o objetivo de combater a pesca ilegal. Veja como contribuir para a preservação durante esse período.</p>
+                    </div>
+                </div>
+
+                <div class="noticia">
+                    <div class="noticia-conteudo">
+                        <h4><a href="https://genyo.com.br/seguro-defeso/" target="_blank">Seguro-Defeso 2025: Informações e Calendário</a></h4>
+                        <p>Saiba tudo sobre o Seguro-Defeso 2025, quem tem direito ao benefício, os valores pagos e o calendário de pagamentos para os pescadores artesanais durante o período de defeso.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="w-full md:w-1/3">
+             <div class="quiz-container glass w-full !max-w-none !m-0 sticky top-24">
+                <h3>Mini Quiz: Você entendeu as regras?</h3>
+                <p><strong>1.</strong> É permitido pescar qualquer espécie durante o defeso se for com vara de pesca?</p>
+                <button onclick="verificarResposta(1, 'a')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">a) Sim, sempre</button>
+                <button onclick="verificarResposta(1, 'b')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">b) Não, apenas com autorização especial</button>
+                <button onclick="verificarResposta(1, 'c')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">c) c) Sim, desde que longe da costa</button>
+
+                <p class="mt-4"><strong>2.</strong> Quem fiscaliza as regras do defeso?</p>
+                <button onclick="verificarResposta(2, 'a')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">a) IBAMA e ICMBio</button>
+                <button onclick="verificarResposta(2, 'b')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">b) Polícia Federal</button>
+                <button onclick="verificarResposta(2, 'c')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">c) Marinha</button>
+
+                <p id="resultado-quiz" class="mt-4"></p>
+            </div>
+        </div>
+    </div>
+    
+<section class="atalhos flex flex-wrap justify-center bg-transparent p-8 gap-4">
+    <div class="atalho">
+        <a href="html/simulador.html" class="glass text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out hover:text-white hover:bg-white/10">
+            <i class="bi bi-clipboard-plus text-2xl text-blue-300"></i> Simulador de Inscrição
+        </a>
+    </div>
+
+    <div class="atalho">
+        <a href="html/educacao.html" class="glass text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out hover:text-white hover:bg-white/10">
+            <i class="bi bi-journal-richtext text-2xl text-blue-300"></i> Educação Ambiental
+        </a>
+    </div>
+
+    <div class="atalho">
+        <a href="html/contato.html" class="glass text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out hover:text-white hover:bg-white/10">
+            <i class="bi bi-envelope text-2xl text-blue-300"></i> Órgãos Responsáveis
+        </a>
+    </div>
+</section>
+<footer class="bg-gray-800 text-white text-center py-6 mt-auto shadow-inner">
+        <p class="text-sm opacity-80">&copy; 2025 Projeto Interdisciplinar - Universidade CEUMA</p>
+    </footer>
+
+    <script>
+        function verificarResposta(pergunta, alternativa) {
+            const corretas = {
+                1: 'b',
+                2: 'a'
+            };
+
+            let resultado = document.getElementById("resultado-quiz");
+
+            // Limpa as classes de cor anteriores
+            resultado.classList.remove('text-green-600', 'text-red-500');
+
+            if (alternativa === corretas[pergunta]) {
+                resultado.textContent = "✅ Resposta correta!";
+                resultado.classList.add('text-green-600');
+            } else {
+                resultado.textContent = "❌ Resposta incorreta. Tente novamente.";
+                resultado.classList.add('text-red-500');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Direitos do Pescador (Estilo Glassmorphism)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <style>
+        /* Estilos Globais e Fundo Liquid Glass (MODELO) */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: #1a1a2e; 
+            background-image: linear-gradient(135deg, #1e3a8a 0%, #1a1a2e 100%);
+            color: #E2E8F0; /* Texto base claro */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* O EFEITO LIQUID GLASS/GLASSMORPHISM BASE (MODELO) */
+        .glass {
+            background-color: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            padding: 2.5rem; 
+        }
+
+        /* Navbar com estilo Glass (MODELO) */
+        .nav-glass {
+            background-color: rgba(26, 26, 46, 0.85); 
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .glass:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Estilos de cor de título e texto para o Glass (MODELO) */
+        .glass h2, .glass h3 {
+            color: #FFFFFF;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+
+        .glass p, .glass li {
+            color: #CBD5E1;
+        }
+        
+        /* Estilos do Conteúdo Principal (Adaptados) */
+        .content-container {
+            max-width: 100%; 
+            margin: 0;
+            padding: 2.5rem; 
+        }
+
+        .content-container h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .content-container h3 {
+            font-size: 2rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2); 
+            padding-bottom: 0.5rem;
+        }
+
+        .content-container ul {
+            padding-left: 1.5rem;
+            list-style: disc; 
+        }
+        
+        /* Estilo Específico para o Video (100% da coluna) */
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0; 
+            width: 100%;
+            padding: 2.5rem;
+        }
+
+        .video-container h3 {
+            color: #FFFFFF; 
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 350px; 
+            border-radius: 1rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        /* CLASSE PARA ROLAGEM ACOMPANHADA (STICKY) */
+        @media (min-width: 768px) {
+            .sidebar-sticky-group {
+                position: sticky;
+                top: 6rem; /* Distância do topo (abaixo da nav-glass) */
+                align-self: flex-start; /* Impede que o bloco se estique */
+            }
+        }
+        
+        /* Estilos de Formulário para Fundo Escuro */
+         .content-container form input[type="text"],
+         .content-container form input[type="email"] {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #E2E8F0;
+        }
+
+        /* ---- SEÇÃO ATALHOS CORRIGIDA (AGORA COM GRADIENTE E SOMBRA SUPERIOR) ---- */
+        .atalhos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            /* Fundo transparente para herdar o gradiente do body */
+            background-color: transparent; 
+            padding: 3rem 1rem; /* Padding maior */
+            gap: 1.5rem;
+            margin-top: 3rem;
+            /* Sombra superior para o efeito de "fita" elevada */
+            box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.3); 
+            border-top: 1px solid rgba(255, 255, 255, 0.08); /* Borda sutil superior */
+            border-radius: 0; /* Garante que não tenha bordas arredondadas */
+            width: 100%;
+        }
+
+        .atalho a {
+            /* Estilo dos botões Dark Glass Sólido (como na referência) */
+            background-color: rgba(0, 0, 0, 0.3); /* Um pouco de transparência para parecer vidro escuro */
+            backdrop-filter: none; /* REMOVIDO O BLUR! */
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Borda mais clara */
+            padding: 1.2rem 1.8rem; /* Aumentado o padding */
+            border-radius: 0.75rem; /* Bordas suaves */
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .atalho a:hover {
+            background-color: rgba(255, 255, 255, 0.1); 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+        
+        .atalho a .bi {
+            color: #93C5FD; 
+            font-size: 1.8rem;
+        }
+        /* ---- FIM SEÇÃO ATALHOS CORRIGIDA ---- */
+
+
+        /* FOOTER - Estilos do modelo de Regras */
+        footer {
+            background-color: #0F172A; 
+            padding: 1.5rem 1rem;
+            margin-top: 0;
+            color: #94A3B8;
+            font-size: 0.9rem;
+            border-top: none;
+            text-align: center;
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+             .content-container, .curiosidades, .faq, .fontes-container {
+                padding: 1.5rem;
+                margin: 1.5rem auto;
+            }
+            .video-container {
+                padding: 1.5rem;
+                margin: 1.5rem auto;
+            }
+            .video-container iframe { 
+                height: 250px; 
+            }
+            .content-container h2 { font-size: 2rem; }
+            .content-container h3 { font-size: 1.5rem; }
+            .atalhos {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+                margin-top: 1.5rem;
+            }
+            .atalho a {
+                width: 100%;
+                justify-content: center;
+                padding: 0.8rem 1.5rem;
+            }
+            .atalho a .bi { font-size: 1.5rem; }
+            .faq summary { font-size: 1rem; }
+        }
+        /* ESTILOS PARA OS NOVOS BOTÕES DE AUTENTICAÇÃO */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Espaçamento entre os botões */
+}
+.auth-link {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Evita quebra de linha em nomes curtos */
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem; /* Espaçamento entre ícone e texto */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra base */
+}
+.btn-login {
+    border: 1px solid #93c5fd; /* Borda azul clara */
+    color: #93c5fd; /* Texto azul claro */
+    background-color: transparent;
+}
+.btn-login:hover {
+    background-color: rgba(147, 197, 253, 0.1); /* Fundo sutil no hover */
+    color: #fff;
+    border-color: #fff;
+}
+.btn-cadastro {
+    background-color: #3b82f6; /* Fundo azul sólido */
+    color: white;
+}
+.btn-cadastro:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+}
+
+/* Ajuste responsivo para alinhar os botões no mobile */
+@media (max-width: 768px) {
+    .auth-buttons {
+        margin-left: 0;
+        margin-top: 1rem;
+        width: 100%; /* Ocupa a largura total para centralização */
+        justify-content: center;
+    }
+}
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <div id="popup-notification-container" class="popup-notification">
+    </div>
+
+<nav class="nav-glass text-white py-4 shadow-lg sticky top-0 z-50">
+    <div class="w-full flex flex-col md:flex-row justify-between items-center px-8">
+        
+        <div class="flex items-center gap-2">
+            
+            <img src="https://img.pikbest.com/png-images/20241013/a-white-and-blue-color-curve-fish-on-background-_10932612.png!w700wp" alt="Logo Pesca Mais" style="height: 40px; width: auto; margin-right: 8px;">
+            
+            <h1 class="text-2xl font-bold text-blue-300">Pesca +</h1>
+            
+        </div>
+        
+        <div class="flex flex-col md:flex-row items-center w-full md:w-auto mt-4 md:mt-0">
+            
+            <ul class="nav-links flex flex-col md:flex-row gap-4">
+                <li><a href="../index.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Home</a></li>
+                <li><a href="regras.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Regras</a></li>
+                <li><a href="informacoes.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Informações</a></li>
+                <li><a href="direitos.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Direitos</a></li>
+                <li><a href="educacao.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Educação</a></li>
+                <li><a href="contato.html" class="text-blue-200 hover:text-blue-400 transition duration-300 ease-in-out font-medium">Contato</a></li>
+            </ul>
+
+            <div class="auth-buttons mt-4 md:mt-0 md:ml-6">
+                <a href="php/perfil.php" class="auth-link btn-cadastro">
+                    <i class="bi bi-person-circle"></i> Perfil
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="flex-grow">
+    
+    <div class="main-grid flex flex-col md:flex-row gap-8 max-w-7xl mx-auto p-4 md:p-8">
+        
+        <div class="w-full md:w-2/3 flex flex-col gap-8">
+
+            <section class="content-container glass">
+                <h2>Direitos do Pescador no Período de Defeso</h2>
+                <p>O período de defeso é uma medida fundamental para a sustentabilidade dos recursos pesqueiros, garantindo que as espécies se reproduzam e que o ecossistema aquático se mantenha saudável. Para os pescadores artesanais, esse período é crucial e, por isso, o governo oferece o benefício do **Seguro-Defeso**, que visa assegurar a subsistência durante a paralisação da pesca.</p>
+
+                <h3>Quem tem direito?</h3>
+                <ul class="list-disc pl-6">
+                    <li>Pescadores e pescadoras artesanais que possuem inscrição ativa no Registro Geral da Atividade Pesqueira (**RGP**) há pelo menos um ano.</li>
+                    <li>Comprovação de exercício da atividade pesqueira de forma exclusiva e ininterrupta nos últimos 12 meses anteriores à solicitação do benefício.</li>
+                    <li>Não ter vínculo empregatício de qualquer natureza ou outra fonte de renda formal (exceto pensão por morte ou auxílio-acidente).</li>
+                    <li>Não estar recebendo nenhum outro benefício da Previdência Social ou da assistência social (como aposentadoria, auxílio-doença, BPC, etc.).</li>
+                </ul>
+
+                <h3>Valor do Benefício</h3>
+                <p>O valor do Seguro-Defeso é equivalente a um **salário mínimo mensal**, pago durante o período de defeso da espécie que o pescador captura. A quantidade de parcelas (geralmente de 3 a 5 meses) varia de acordo com a duração do defeso estabelecido para cada espécie e região.</p>
+
+                <h3>Documentação Necessária</h3>
+                <ul class="list-disc pl-6">
+                    <li>Comprovante de inscrição e situação regular no Registro Geral da Pesca (RGP).</li>
+                    <li>Declaração de pescador artesanal, emitida por entidade representativa.</li>
+                    <li>Documento de identidade oficial com foto (RG, CNH, CTPS) e CPF.</li>
+                    <li>Comprovante de residência atualizado.</li>
+                    <li>Comprovantes da atividade pesqueira nos últimos 12 meses (notas fiscais de venda de pescado, comprovantes de recolhimento de contribuição previdenciária, etc.).</li>
+                </ul>
+
+                <h3>Fontes Oficiais</h3>
+                <ul class="list-disc pl-6">
+                    <li><a href="https://www.gov.br/mte/pt-br/assuntos/pesca" target="_blank" class="text-blue-400 hover:text-blue-300 font-medium transition duration-300 ease-in-out"><i class="bi bi-link-45deg"></i> Ministério do Trabalho e Emprego - MTE</a></li>
+                    <li><a href="https://www.inss.gov.br/beneficios/seguro-defeso/" target="_blank" class="text-blue-400 hover:text-blue-300 font-medium transition duration-300 ease-in-out"><i class="bi bi-link-45deg"></i> INSS - Seguro Defeso</a></li>
+                </ul>
+            </section>
+            
+            <section class="content-container glass">
+                <h3>Importância do Defeso para o Pescador</h3>
+                <p>Além de ser uma medida de proteção ambiental, o período de defeso é um aliado do pescador. Ao permitir que as espécies se reproduzam e cresçam, garante-se a **sustentabilidade da pesca a longo prazo**, assegurando que haverá peixe para as futuras gerações e, consequentemente, a continuidade da atividade pesqueira como fonte de sustento.</p>
+                <p>O benefício financeiro do Seguro-Defeso é fundamental para que o pescador artesanal não precise recorrer à pesca predatória ou a outras atividades ilegais para sobreviver durante o período de paralisação, fortalecendo a cadeia produtiva e a conservação ambiental.</p>
+            </section>
+            
+            <section class="content-container glass">
+                <h3>Simule seu Direito ao Seguro-Defeso</h3>
+                <p class="text-center text-gray-400 mb-6">Preencha o formulário abaixo para ter uma ideia se você se enquadra nos critérios para receber o Seguro-Defeso. Esta é uma simulação e não garante o benefício.</p>
+                <form action="php/processa_simulador.php" method="post">
+                    <label for="nome">Seu nome:</label>
+                    <input type="text" name="nome" id="nome" required class="w-full p-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-white" />
+
+                    <label for="email" class="mt-4">Seu e-mail:</label>
+                    <input type="email" name="email" id="email" required class="w-full p-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-white" />
+
+                    <label class="mt-4">1. Você exerce a atividade pesqueira de forma ininterrupta?</label>
+                    <div class="flex gap-4 mt-2">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="q1" value="Sim" required class="form-radio text-blue-400 bg-gray-700" />
+                            <span class="ml-2 text-gray-300">Sim</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="q1" value="Não" class="form-radio text-blue-400 bg-gray-700" />
+                            <span class="ml-2 text-gray-300">Não</span>
+                        </label>
+                    </div>
+
+                    <label class="mt-4">2. Está inscrito no RGP há pelo menos 1 ano?</label>
+                    <div class="flex gap-4 mt-2">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="q2" value="Sim" required class="form-radio text-blue-400 bg-gray-700" />
+                            <span class="ml-2 text-gray-300">Sim</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="q2" value="Não" class="form-radio text-blue-400 bg-gray-700" />
+                            <span class="ml-2 text-gray-300">Não</span>
+                        </label>
+                    </div>
+
+                    <label class="mt-4">3. Comprovou a contribuição previdenciária nos últimos 12 meses?</label>
+                    <div class="flex gap-4 mt-2">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="q3" value="Sim" required class="form-radio text-blue-400 bg-gray-700" />
+                            <span class="ml-2 text-gray-300">Sim</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="q3" value="Não" class="form-radio text-blue-400 bg-gray-700" />
+                            <span class="ml-2 text-gray-300">Não</span>
+                        </label>
+                    </div>
+
+                    <label class="mt-4">4. Você não recebe outro benefício (exceto pensão ou auxílio-acidente)?</label>
+                    <div class="flex gap-4 mt-2">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="q4" value="Sim" required class="form-radio text-blue-400 bg-gray-700" />
+                            <span class="ml-2 text-gray-300">Sim</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="q4" value="Não" class="form-radio text-blue-400 bg-gray-700" />
+                            <span class="ml-2 text-gray-300">Não</span>
+                        </label>
+                    </div>
+
+                    <label class="mt-4">5. Você não possui outra fonte de renda?</label>
+                    <div class="flex gap-4 mt-2">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="q5" value="Sim" required class="form-radio text-blue-400 bg-gray-700" />
+                            <span class="ml-2 text-gray-300">Sim</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="q5" value="Não" class="form-radio text-blue-400 bg-gray-700" />
+                            <span class="ml-2 text-gray-300">Não</span>
+                        </label>
+                    </div>
+
+                    <label class="mt-4">6. Vai pedir o benefício dentro do prazo correto?</label>
+                    <div class="flex gap-4 mt-2">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="q6" value="Sim" required class="form-radio text-blue-400 bg-gray-700" />
+                            <span class="ml-2 text-gray-300">Sim</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="q6" value="Não" class="form-radio text-blue-400 bg-gray-700" />
+                            <span class="ml-2 text-gray-300">Não</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="mt-6">Verificar Direito</button>
+                </form>
+                
+                <div class="mt-8 text-center">
+                    <a href="php/admin_simulacoes.php" class="inline-block px-8 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-600 transition duration-300 ease-in-out">
+                        <i class="bi bi-search"></i> Acessar Registros de Simulação
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <div class="w-full md:w-1/3 flex flex-col gap-8 sidebar-sticky-group">
+            
+            <div class="curiosidades glass">
+                <h3>Curiosidades sobre o Defeso</h3>
+                <ul class="list-none pl-0">
+                    <li>A pesca ilegal pode causar colapsos em cadeias alimentares marinhas, afetando não só as espécies-alvo, mas todo o ecossistema.</li>
+                    <li>Peixes em período de defeso estão em sua fase mais vulnerável, dedicando-se à reprodução e garantindo a continuidade da espécie para os próximos ciclos.</li>
+                    <li>O Seguro-Defeso é uma forma de valorizar o trabalho do pescador artesanal e reconhecer seu papel fundamental na conservação ambiental.</li>
+                </ul>
+            </div>
+
+            <section class="faq glass">
+                <h3>Perguntas Frequentes</h3>
+                <details class="mb-4">
+                    <summary>Como solicitar o Seguro-Defeso?</summary>
+                    <p>A solicitação pode ser feita de forma online, pelo aplicativo ou site "**Meu INSS**". É importante ter todos os dados atualizados e os documentos exigidos em mãos para agilizar o processo.</p>
+                </details>
+                <details class="mb-4">
+                    <summary>Posso trabalhar em outra atividade durante o defeso?</summary>
+                    <p>Não. Para ter direito ao Seguro-Defeso, o pescador não pode ter vínculo empregatício ou outra fonte de renda formal durante o período de paralisação da pesca, exceto pensão por morte ou auxílio-acidente.</p>
+                </details>
+                <details class="mb-4">
+                    <summary>Quantas parcelas do Seguro-Defeso recebo?</summary>
+                    <p>O número de parcelas varia de **3 a 5 meses**, dependendo da duração do período de defeso estabelecido para a espécie e a região onde o pescador atua.</p>
+                </details>
+                <details class="mb-4">
+                    <summary>O que acontece se eu pescar durante o defeso?</summary>
+                    <p>A pesca ilegal durante o defeso é crime ambiental e pode resultar em **multas pesadas**, apreensão de equipamentos e do pescado, além de processos judiciais. É fundamental respeitar as regras para evitar sanções e contribuir com a conservação.</p>
+                </details>
+            </section>
+            
+            <div class="video-container glass">
+                <h3>Assista e Aprenda</h3>
+                <iframe src="https://www.youtube.com/embed/J9MQKZ1UlgI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="fontes-container glass">
+                <h4>Fontes:</h4>
+                <a href="https://www.ibama.gov.br/" target="_blank">IBAMA</a>
+                <a href="https://www.icmbio.gov.br/" target="_blank">ICMBio</a>
+                <a href="https://www.mma.gov.br/" target="_blank">Ministério do Meio Ambiente</a>
+                <a href="https://www.oceanconservancy.org/" target="_blank">Ocean Conservancy</a>
+            </div>
+
+        </div>
+    </div>
+    
+    <section class="atalhos">
+    <div class="atalho">
+        <a href="html/simulador.html" class="text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out">
+            <i class="bi bi-clipboard-plus text-2xl text-blue-300"></i> Simulador de Inscrição
+        </a>
+    </div>
+
+    <div class="atalho">
+        <a href="html/educacao.html" class="text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out">
+            <i class="bi bi-journal-richtext text-2xl text-blue-300"></i> Educação Ambiental
+        </a>
+    </div>
+
+    <div class="atalho">
+        <a href="html/contato.html" class="text-white py-4 px-6 rounded-xl shadow-md font-semibold flex items-center gap-2 transition duration-300 ease-in-out">
+            <i class="bi bi-envelope text-2xl text-blue-300"></i> Órgãos Responsáveis
+        </a>
+    </div>
+</section>
+
+<footer class="bg-gray-800 text-white text-center py-6 mt-auto shadow-inner">
+    <p class="text-sm opacity-80">© 2025 Projeto Interdisciplinar - Universidade CEUMA</p>
+</footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const mensagem = urlParams.get('mensagem');
+            const notificationContainer = document.getElementById('popup-notification-container');
+
+            if (status && mensagem) {
+                notificationContainer.textContent = decodeURIComponent(mensagem);
+                notificationContainer.className = `popup-notification show ${status}`; // Adiciona 'sucesso' ou 'erro'
+                setTimeout(() => {
+                    notificationContainer.classList.remove('show');
+                    setTimeout(() => {
+                        notificationContainer.textContent = '';
+                    }, 500); // Tempo da transição de opacidade
+                }, 3000); // Tempo em milissegundos que a mensagem ficará visível (3 segundos)
+                // Limpa os parâmetros da URL para que o popup não apareça novamente ao recarregar
+                history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+    </script>
+</body>
+</html>
